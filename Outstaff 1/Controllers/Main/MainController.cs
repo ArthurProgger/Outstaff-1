@@ -24,9 +24,9 @@ public class MainController(IMainService mainService) : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<ActionResult<GetAllDataResult[]>> GetAllData([FromQuery] GetAllDataRequest? request, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetAllDataResult[]>> GetAllData([FromQuery] GetAllDataRequest request, CancellationToken cancellationToken)
     {
-        var getAllDataFilterDto = request.Adapt<GetAllDataFilterDTO?>();
+        var getAllDataFilterDto = request.Adapt<GetAllDataFilterDTO>();
         var allData = await mainService.GetAllData(getAllDataFilterDto, cancellationToken);
         var result = allData.Adapt<GetAllDataResult[]>();
 

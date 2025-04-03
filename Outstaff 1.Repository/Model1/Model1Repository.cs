@@ -19,12 +19,15 @@ public sealed class Model1Repository(DataContext dataContext) : IModel1Repositor
     public Task ClearAllData(CancellationToken cancellationToken) =>
         dataContext.Database.ExecuteSqlRawAsync($"TRUNCATE TABLE {TableName}", cancellationToken);
 
-    public Task<GetAllDataResultRepositoryDTO[]> GetAllData(GetAllDataFilterRepositoryDTO? getAllDataFilterRepositoryDto, CancellationToken cancellationToken) =>
+    public Task<GetAllDataResultRepositoryDTO[]> GetAllData(GetAllDataFilterRepositoryDTO getAllDataFilterRepositoryDto, CancellationToken cancellationToken) =>
         dataContext
         .Model1Collection
         .AsNoTracking()
         .IgnoreAutoIncludes()
-        .Where(model => getAllDataFilterRepositoryDto == null ||
+        .Where(model =>
+            getAllDataFilterRepositoryDto.Id == null &&
+            getAllDataFilterRepositoryDto.Code == null &&
+            getAllDataFilterRepositoryDto.Value == null ||
             model.Id == getAllDataFilterRepositoryDto.Id ||
             model.Code == getAllDataFilterRepositoryDto.Code ||
             model.Value == getAllDataFilterRepositoryDto.Value)

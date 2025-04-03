@@ -18,9 +18,9 @@ public sealed class MainService(IModel1Repository model1Repository) : IMainServi
     public Task ClearAllData(CancellationToken cancellationToken) =>
         model1Repository.ClearAllData(cancellationToken);
 
-    public async Task<GetAllDataResultDTO[]> GetAllData(GetAllDataFilterDTO? getAllDataFilterDto, CancellationToken cancellationToken)
+    public async Task<GetAllDataResultDTO[]> GetAllData(GetAllDataFilterDTO getAllDataFilterDto, CancellationToken cancellationToken)
     {
-        var getAllDataFilterRepositoryDto = getAllDataFilterDto.Adapt<GetAllDataFilterRepositoryDTO?>();
+        var getAllDataFilterRepositoryDto = getAllDataFilterDto.Adapt<GetAllDataFilterRepositoryDTO>();
         var dataFromRepository = await model1Repository.GetAllData(getAllDataFilterRepositoryDto, cancellationToken);
         var result = dataFromRepository.Adapt<GetAllDataResultDTO[]>();
 
