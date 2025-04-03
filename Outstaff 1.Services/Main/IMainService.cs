@@ -6,8 +6,7 @@ namespace Outstaff_1.Services.Main
 {
     public interface IMainService
     {
-        Task ClearAllData(CancellationToken cancellationToken);
-        Task<GetAllDataResultDTO[]> GetAllData(GetAllDataFilterDTO getAllDataFilterDto, CancellationToken cancellationToken);
-        Task SaveData(SaveDataDTO[] dto, CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<GetAllDataResultDTO>> GetAllData(GetAllDataFilterDTO getAllDataFilterDto, CancellationToken cancellationToken);
+        Task SaveData(IReadOnlyCollection<SaveDataDTO> dto, CancellationToken cancellationToken);
     }
 }

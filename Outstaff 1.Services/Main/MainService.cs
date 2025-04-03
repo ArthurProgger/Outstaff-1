@@ -1,4 +1,4 @@
-﻿using Mapster;
+﻿using MapsterMapper;
 using Outstaff_1.DataAccess.Models;
 using Outstaff_1.Repository.DTO.GetAllData;
 using Outstaff_1.Repository.Model1;
@@ -7,22 +7,21 @@ using Outstaff_1.Services.Main.DTO.GetAllData;
 
 namespace Outstaff_1.Services.Main;
 
-public sealed class MainService(IModel1Repository model1Repository) : IMainService
+public sealed class MainService(IModel1Repository model1Repository, IMapper mapper) : IMainService
 {
-    public Task SaveData(SaveDataDTO[] dto, CancellationToken cancellationToken)
+    public async Task SaveData(IReadOnlyCollection<SaveDataDTO> saveDataDto, CancellationToken cancellationToken)
     {
-        var models = dto.Adapt<Model1Model[]>();
-        return model1Repository.SaveData(models, cancellationToken);
+        var models = mapper.From(saveDataDto.OrderBy(data => data.Code)).AdaptToType<Model1Model[]>();
+
+        await model1Repository.ClearAllData(cancellationToken);
+        await model1Repository.SaveData(models, cancellationToken);
     }
 
-    public Task ClearAllData(CancellationToken cancellationToken) =>
-        model1Repository.ClearAllData(cancellationToken);
-
-    public async Task<GetAllDataResultDTO[]> GetAllData(GetAllDataFilterDTO getAllDataFilterDto, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<GetAllDataResultDTO>> GetAllData(GetAllDataFilterDTO getAllDataFilterDto, CancellationToken cancellationToken)
     {
-        var getAllDataFilterRepositoryDto = getAllDataFilterDto.Adapt<GetAllDataFilterRepositoryDTO>();
+        var getAllDataFilterRepositoryDto = mapper.From(getAllDataFilterDto).AdaptToType<GetAllDataFilterRepositoryDTO>();
         var dataFromRepository = await model1Repository.GetAllData(getAllDataFilterRepositoryDto, cancellationToken);
-        var result = dataFromRepository.Adapt<GetAllDataResultDTO[]>();
+        var result = mapper.From(dataFromRepository).AdaptToType<GetAllDataResultDTO[]>();
 
         return result;
     }
