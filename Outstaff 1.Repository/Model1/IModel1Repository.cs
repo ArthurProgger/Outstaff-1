@@ -1,5 +1,5 @@
 ﻿using Outstaff_1.DataAccess.Models;
-using Outstaff_1.Repository.DTO.GetAllData;
+using Outstaff_1.Repository.Model1.DTO.GetAllData;
 
 namespace Outstaff_1.Repository.Model1
 {
