@@ -1,3 +1,6 @@
+using Mapster;
+using Outstaff_1.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+builder.AddRepositories();
+builder.Services.AddMapster();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
@@ -15,6 +22,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
