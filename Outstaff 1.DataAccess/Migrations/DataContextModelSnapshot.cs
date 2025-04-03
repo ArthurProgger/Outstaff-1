@@ -21,49 +21,6 @@ namespace Outstaff_1.DataAccess.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("Outstaff_1.DataAccess.Models.ClientContactModel", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("ClientId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ContactType")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("ContactValue")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("ClientContacts");
-                });
-
-            modelBuilder.Entity("Outstaff_1.DataAccess.Models.ClientModel", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Clients");
-                });
-
             modelBuilder.Entity("Outstaff_1.DataAccess.Models.Model1Model", b =>
                 {
                     b.Property<int>("Id")
@@ -82,17 +39,6 @@ namespace Outstaff_1.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Model1Collection");
-                });
-
-            modelBuilder.Entity("Outstaff_1.DataAccess.Models.ClientContactModel", b =>
-                {
-                    b.HasOne("Outstaff_1.DataAccess.Models.ClientModel", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
                 });
 #pragma warning restore 612, 618
         }

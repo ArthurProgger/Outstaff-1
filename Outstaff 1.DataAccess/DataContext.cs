@@ -6,6 +6,4 @@ namespace Outstaff_1.DataAccess;
 public sealed class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
     public DbSet<Model1Model> Model1Collection { get; set; }
-    public DbSet<ClientModel> Clients { get; set; }
-    public DbSet<ClientContactModel> ClientContacts { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Outstaff_1.DataAccess.Models;
+using Outstaff_1.Repository.DTO.GetAllData;
 using Outstaff_1.Repository.Model1;
-using Outstaff_1.Repository.Model1.DTO.GetAllData;
 using Outstaff_1.Services.Main.DTO;
 using Outstaff_1.Services.Main.DTO.GetAllData;
 

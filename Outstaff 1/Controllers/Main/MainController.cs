@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Outstaff_1.Controllers.Main.Requests;
-using Outstaff_1.Controllers.Main.Responses;
+using Outstaff_1.Controllers.Main.Results;
 using Outstaff_1.Services.Main;
 using Outstaff_1.Services.Main.DTO;
 using Outstaff_1.Services.Main.DTO.GetAllData;
@@ -24,11 +24,11 @@ public class MainController(IMainService mainService) : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<ActionResult<GetAllDataResponse[]>> GetAllData([FromQuery] GetAllDataRequest? request, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetAllDataResult[]>> GetAllData([FromQuery] GetAllDataRequest? request, CancellationToken cancellationToken)
     {
         var getAllDataFilterDto = request.Adapt<GetAllDataFilterDTO?>();
         var allData = await mainService.GetAllData(getAllDataFilterDto, cancellationToken);
-        var result = allData.Adapt<GetAllDataResponse[]>();
+        var result = allData.Adapt<GetAllDataResult[]>();
 
         return Ok(result);
     }

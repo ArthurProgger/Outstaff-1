@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 
 builder.AddRepositories();
 builder.Services.AddMapster();
-builder.Services.AddCustomServices();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
